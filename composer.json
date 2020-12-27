@@ -1,0 +1,28 @@
+{
+    "name": "easeappphp/pdolight",
+    "description": "A very simple and safe PHP library to execute PDO based database queries. Methods are provided to prepare a SQL Statement & it's execution separately as different methods (to facilitate caching of prepared statements) as well as together in a single method too.",
+	"keywords": ["php", "pdo", "mysql"],
+    "homepage": "https://www.easeapp.org/",
+    "type": "library",
+	"require": {
+        "php": "^7.2",
+		"ext-PDO": "*"
+    },
+	"require-dev": {
+        "php": "^7.2",
+		"ext-PDO": "*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Raghuveer Dendukuri",
+            "email": "raghuveer.dendukuri@gmail.com"
+        }
+    ],
+	"autoload": {
+       
+	   "psr-4": {
+            "PDOLight\\": "src"
+        }
+    }
+}
