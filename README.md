@@ -23,9 +23,9 @@ To include the library,
 
 ```php
 <?php
-use easeappphp/PDOLight;
-
 require 'vendor/autoload.php';
+
+use \EaseAppPHP\PDOLight\PDOLight;
 ```
 
 In order to connect to the database, you need to initialize the `PDOLight` class, by passing your database credentials as parameters, in the following order (server hostname, username, password, database name, charset, port number, pdo default fetch mode):
