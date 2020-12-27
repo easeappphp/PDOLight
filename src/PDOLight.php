@@ -57,7 +57,7 @@ class PDOLight {
 		];
 		
 		try {
-			$this->connection = new PDO($dsn, $this->dbUsername, $this->dbPassword, $options);
+			$this->connection = new \PDO($dsn, $this->dbUsername, $this->dbPassword, $options);
 		} catch (\PDOException $e) {
 			throw new \PDOException($e->getMessage(), (int)$e->getCode());
 		}
