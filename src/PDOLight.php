@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PDOLight;
+namespace EaseAppPHP\PDOLight;
 
 /*
 * Name: PDOLight
