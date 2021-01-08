@@ -9,6 +9,7 @@ Doing SQL Queries on MySQL/MariaDB in a simple and secure way, preventing SQL In
 - MySQL/MariaDB Connection object supported at present
 - Named parameters supported basically instead of question mark `"?"` placeholders
 - While sanitizing inputs is always a good practice, values that are provided as input to `runPreparedQuery` or `executeQuery` methods serve the purpose by securely executing respective DB queries
+- Have required checks to find database connection errors and to reconnect to the database when preparing db queries
 
 ### Getting started
 With Composer, run
