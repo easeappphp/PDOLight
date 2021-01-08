@@ -47,6 +47,12 @@ class PDOLight {
 			
 		}
 		
+		$this->connectDb();
+		
+    }
+	
+	public function connectDb() {
+		
 		//Data Source Name (for MySQL/MariaDB)
 		$dsn = "mysql:host=$this->dbHost;dbname=$this->dbName;charset=$this->charset;port=$this->port";
 		
@@ -57,14 +63,28 @@ class PDOLight {
 		];
 		
 		try {
+			
 			$this->connection = new \PDO($dsn, $this->dbUsername, $this->dbPassword, $options);
+			
 		} catch (\PDOException $e) {
+			
 			throw new \PDOException($e->getMessage(), (int)$e->getCode());
+			
 		}
 	}
 
 	public function prepareQuery($query) {
-		$stmt = $this->connection->prepare($query);
+		try {
+			
+			$stmt = $this->connection->prepare($query);
+			
+	    } catch (\PDOException $e) {
+			
+			$this->connectDb();
+			$stmt = $this->connection->prepare($query);
+			
+	    }
+		
 		return $stmt;
 	}
 	
@@ -143,9 +163,9 @@ class PDOLight {
 		
 	}
 	
-	public function executeQuery($query, array $valuesArray, $crudOperationType) {	
+	public function executeQuery($query, array $valuesArray, $crudOperationType) {
 		
-		$preparedStmt = $this->connection->prepare($query);
+		$preparedStmt = $this->prepareQuery($query);
 		
 		if ($crudOperationType == "insert") {
 			
