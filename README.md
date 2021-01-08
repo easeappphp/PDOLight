@@ -32,9 +32,9 @@ In order to connect to the database, you need to initialize the `PDOLight` class
 
 ```php
 $dbHost = "localhost";
-$dbUsername = "chatimmus_dbuser2";
-$dbPassword = "khvyi68rtfhf65etdudfy8i";
-$dbName = "chatimmus_db2";
+$dbUsername = "database_username";
+$dbPassword = "database_password_value";
+$dbName = "database_name";
 $charset = "utf8mb4";
 $port = "3306";
 $pdoAttrDefaultFetchMode = \PDO::FETCH_ASSOC; //\PDO::FETCH_ASSOC or \PDO::FETCH_OBJ
