@@ -9,7 +9,7 @@ namespace EaseAppPHP\PDOLight;
 *
 * Author: Raghuveer Dendukuri
 *
-* Version: 0.0.1
+* Version: 1.0.4
 *
 * Description: A very simple and safe PHP library to execute PDO based database queries. Methods are provided to prepare a SQL Statement & it's execution    
 * separately as different methods (to facilitate caching of prepared statements) as well as together in a single method too.
@@ -90,11 +90,23 @@ class PDOLight {
 	
 	public function runPreparedQuery($preparedStmt, array $valuesArray, $crudOperationType) {
 		
-		if ($crudOperationType == "insert") {
+		if ($crudOperationType == "insertWithIntegerAsPrimaryKey") {
 			
 			if($preparedStmt->execute($valuesArray)) {
 				
-				return $this->connection->lastInsertId();
+				return (int) $this->connection->lastInsertId();
+				
+			} else {
+				
+				return "";
+				
+			}
+			
+		} else if ($crudOperationType == "insertWithUUIDAsPrimaryKey") {
+			
+			if($preparedStmt->execute($valuesArray)) {
+				
+				return (string) $this->connection->lastInsertId();
 				
 			} else {
 				
@@ -167,11 +179,23 @@ class PDOLight {
 		
 		$preparedStmt = $this->prepareQuery($query);
 		
-		if ($crudOperationType == "insert") {
+		if ($crudOperationType == "insertWithIntegerAsPrimaryKey") {
 			
 			if($preparedStmt->execute($valuesArray)) {
 				
-				return $this->connection->lastInsertId();
+				return (int) $this->connection->lastInsertId();
+				
+			} else {
+				
+				return "";
+				
+			}
+			
+		} else if ($crudOperationType == "insertWithUUIDAsPrimaryKey") {
+			
+			if($preparedStmt->execute($valuesArray)) {
+				
+				return (string) $this->connection->lastInsertId();
 				
 			} else {
 				
