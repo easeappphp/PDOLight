@@ -90,177 +90,185 @@ class PDOLight {
 	
 	public function runPreparedQuery($preparedStmt, array $valuesArray, $crudOperationType) {
 		
-		if ($crudOperationType == "insertWithIntegerAsPrimaryKey") {
+		try {
 			
-			if($preparedStmt->execute($valuesArray)) {
-				
-				return (int) $this->connection->lastInsertId();
-				
-			} else {
-				
-				return "";
-				
-			}
+			if ($crudOperationType == "insertWithIntegerAsPrimaryKey") {
 			
-		} else if ($crudOperationType == "insertWithUUIDAsPrimaryKey") {
-			
-			if($preparedStmt->execute($valuesArray)) {
+				if($preparedStmt->execute($valuesArray)) {
+					
+					return (int) $this->connection->lastInsertId();
+					
+				} else {
+					
+					return "";
+					
+				}
 				
-				return (string) $this->connection->lastInsertId();
+			} else if ($crudOperationType == "insertWithUUIDAsPrimaryKey") {
 				
-			} else {
+				if($preparedStmt->execute($valuesArray)) {
+					
+					return (string) $this->connection->lastInsertId();
+					
+				} else {
+					
+					return "";
+					
+				}
 				
-				return "";
+			} else if ($crudOperationType == "update") {
 				
-			}
-			
-		} else if ($crudOperationType == "update") {
-			
-			if($preparedStmt->execute($valuesArray)) {
-			    
-				return true;
+				if($preparedStmt->execute($valuesArray)) {
+					
+					return true;
+					
+				} else {
+					
+					return false;
+					
+				}
 				
-			} else {
 				
-				return false;
+			} else if ($crudOperationType == "delete") {
 				
-			}
-			
-			
-		} else if ($crudOperationType == "delete") {
-			
-			if($preparedStmt->execute($valuesArray)) {
-			   
-			    return true;
-			   
-			} else {
+				if($preparedStmt->execute($valuesArray)) {
+				   
+					return true;
+				   
+				} else {
+					
+					return false;
+					
+				}
 				
-				return false;
+			} else if ($crudOperationType == "selectSingle") {
 				
-			}
-			
-		} else if ($crudOperationType == "selectSingle") {
-			
-			$preparedStmt->execute($valuesArray);
-			
-			if($preparedStmt->rowCount() > 0) {
+				$preparedStmt->execute($valuesArray);
 				
-				return $preparedStmt->fetch();
+				if($preparedStmt->rowCount() > 0) {
+					
+					return $preparedStmt->fetch();
 
-			} else {
+				} else {
+					
+					return [];
+					
+				}
 				
-				return [];
+			} else if ($crudOperationType == "selectMultiple") {
+				
+				$preparedStmt->execute($valuesArray);
+				
+				if($preparedStmt->rowCount() > 0) {
+					
+					return $preparedStmt->fetchAll();
+					
+				} else {
+					
+					return [];
+					
+				}
 				
 			}
 			
-		} else if ($crudOperationType == "selectMultiple") {
-			
-			$preparedStmt->execute($valuesArray);
-			
-			if($preparedStmt->rowCount() > 0) {
-				
-				return $preparedStmt->fetchAll();
-				
-			} else {
-				
-				return [];
-				
-			}
-			
-		} else {
+	    } catch (\Exception $e) {
 			
 			throw new Exception('Invalid CRUD Operation Type input.');
 			
-		}
+	    }
 		
 	}
 	
 	public function executeQuery($query, array $valuesArray, $crudOperationType) {
 		
-		$preparedStmt = $this->prepareQuery($query);
-		
-		if ($crudOperationType == "insertWithIntegerAsPrimaryKey") {
+		try {
 			
-			if($preparedStmt->execute($valuesArray)) {
-				
-				return (int) $this->connection->lastInsertId();
-				
-			} else {
-				
-				return "";
-				
-			}
+			$preparedStmt = $this->prepareQuery($query);
 			
-		} else if ($crudOperationType == "insertWithUUIDAsPrimaryKey") {
+			if ($crudOperationType == "insertWithIntegerAsPrimaryKey") {
 			
-			if($preparedStmt->execute($valuesArray)) {
+				if($preparedStmt->execute($valuesArray)) {
+					
+					return (int) $this->connection->lastInsertId();
+					
+				} else {
+					
+					return "";
+					
+				}
 				
-				return (string) $this->connection->lastInsertId();
+			} else if ($crudOperationType == "insertWithUUIDAsPrimaryKey") {
 				
-			} else {
+				if($preparedStmt->execute($valuesArray)) {
+					
+					return (string) $this->connection->lastInsertId();
+					
+				} else {
+					
+					return "";
+					
+				}
 				
-				return "";
+			} else if ($crudOperationType == "update") {
 				
-			}
-			
-		} else if ($crudOperationType == "update") {
-			
-			if($preparedStmt->execute($valuesArray)) {
-			    
-				return true;
+				if($preparedStmt->execute($valuesArray)) {
+					
+					return true;
+					
+				} else {
+					
+					return false;
+					
+				}
 				
-			} else {
 				
-				return false;
+			} else if ($crudOperationType == "delete") {
 				
-			}
-			
-			
-		} else if ($crudOperationType == "delete") {
-			
-			if($preparedStmt->execute($valuesArray)) {
-			   
-			    return true;
-			   
-			} else {
+				if($preparedStmt->execute($valuesArray)) {
+				   
+					return true;
+				   
+				} else {
+					
+					return false;
+					
+				}
 				
-				return false;
+			} else if ($crudOperationType == "selectSingle") {
 				
-			}
-			
-		} else if ($crudOperationType == "selectSingle") {
-			
-			$preparedStmt->execute($valuesArray);
-			
-			if($preparedStmt->rowCount() > 0) {
+				$preparedStmt->execute($valuesArray);
 				
-				return $preparedStmt->fetch();
+				if($preparedStmt->rowCount() > 0) {
+					
+					return $preparedStmt->fetch();
 
-			} else {
+				} else {
+					
+					return [];
+					
+				}
 				
-				return [];
+			} else if ($crudOperationType == "selectMultiple") {
+				
+				$preparedStmt->execute($valuesArray);
+				
+				if($preparedStmt->rowCount() > 0) {
+					
+					return $preparedStmt->fetchAll();
+					
+				} else {
+					
+					return [];
+					
+				}
 				
 			}
 			
-		} else if ($crudOperationType == "selectMultiple") {
-			
-			$preparedStmt->execute($valuesArray);
-			
-			if($preparedStmt->rowCount() > 0) {
-				
-				return $preparedStmt->fetchAll();
-				
-			} else {
-				
-				return [];
-				
-			}
-			
-		} else {
+	    } catch (\Exception $e) {
 			
 			throw new Exception('Invalid CRUD Operation Type input.');
 			
-		}
+	    }
 		
 	}
 	
