@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace EaseAppPHP\PDOLight;
 
+use \EaseAppPHP\PDOLight\Exceptions\PDOLightException;
+
 /*
 * Name: PDOLight
 *
 * Author: Raghuveer Dendukuri
 *
-* Version: 1.0.5
+* Version: 1.0.6
 *
 * Description: A very simple and safe PHP library to execute PDO based database queries. Methods are provided to prepare a SQL Statement & it's execution    
 * separately as different methods (to facilitate caching of prepared statements) as well as together in a single method too.
 *
 * License: MIT
 *
-* @copyright 2020 Raghuveer Dendukuri
+* @copyright 2020-2021 Raghuveer Dendukuri
 */
 class PDOLight {
 	private $dbHost;
@@ -37,17 +39,25 @@ class PDOLight {
 		$this->charset = $charset;
 		$this->port = $port;
 		
-		if (($pdoAttrDefaultFetchMode == \PDO::FETCH_ASSOC) || ($pdoAttrDefaultFetchMode == \PDO::FETCH_OBJ)) {
+		try {
 			
-			$this->pdoAttrDefaultFetchMode = $pdoAttrDefaultFetchMode;
+			if (($pdoAttrDefaultFetchMode == \PDO::FETCH_ASSOC) || ($pdoAttrDefaultFetchMode == \PDO::FETCH_OBJ)) {
 			
-		} else {
+				$this->pdoAttrDefaultFetchMode = $pdoAttrDefaultFetchMode;
+				
+			} else {
+				
+				throw new PDOLightException('Invalid PDO Attribute Default Fetch Mode input.');
+				
+			}
 			
-			throw new Exception('Invalid PDO Attribute Default Fetch Mode input.');
+			$this->connectDb();
+			
+		} catch (PDOLightException $e) {
+			
+			echo "\n PDOLightException - ", $e->getMessage(), (int)$e->getCode();
 			
 		}
-		
-		$this->connectDb();
 		
     }
 	
@@ -66,9 +76,9 @@ class PDOLight {
 			
 			$this->connection = new \PDO($dsn, $this->dbUsername, $this->dbPassword, $options);
 			
-		} catch (\PDOException $e) {
+		} catch (PDOLightException $e) {
 			
-			throw new \PDOException($e->getMessage(), (int)$e->getCode());
+			echo "\n PDOLightException - ", $e->getMessage(), (int)$e->getCode();
 			
 		}
 	}
@@ -78,7 +88,7 @@ class PDOLight {
 			
 			$stmt = $this->connection->prepare($query);
 			
-	    } catch (\PDOException $e) {
+	    } catch (PDOLightException $e) {
 			
 			$this->connectDb();
 			$stmt = $this->connection->prepare($query);
@@ -169,11 +179,15 @@ class PDOLight {
 					
 				}
 				
+			} else {
+				
+				throw new PDOLightException('Invalid CRUD Operation Type input.');
+				
 			}
 			
-	    } catch (\Exception $e) {
+	    } catch (PDOLightException $e) {
 			
-			throw new Exception('Invalid CRUD Operation Type input.');
+			echo "\n PDOLightException - ", $e->getMessage(), (int)$e->getCode();
 			
 	    }
 		
@@ -262,11 +276,15 @@ class PDOLight {
 					
 				}
 				
+			} else {
+				
+				throw new PDOLightException('Invalid CRUD Operation Type input.');
+				
 			}
 			
-	    } catch (\Exception $e) {
+	    } catch (PDOLightException $e) {
 			
-			throw new Exception('Invalid CRUD Operation Type input.');
+			echo "\n PDOLightException - ", $e->getMessage(), (int)$e->getCode();
 			
 	    }
 		
