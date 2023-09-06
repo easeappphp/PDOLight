@@ -11,14 +11,14 @@ use \EaseAppPHP\PDOLight\Exceptions\PDOLightException;
 *
 * Author: Raghuveer Dendukuri
 *
-* Version: 1.0.6
+* Version: 1.0.8
 *
 * Description: A very simple and safe PHP library to execute PDO based database queries. Methods are provided to prepare a SQL Statement & it's execution    
 * separately as different methods (to facilitate caching of prepared statements) as well as together in a single method too.
 *
 * License: MIT
 *
-* @copyright 2020-2021 Raghuveer Dendukuri
+* @copyright 2020-2023 Raghuveer Dendukuri
 */
 class PDOLight {
 	private $dbHost;
