@@ -74,7 +74,7 @@ class PDOLight {
 		
 		try {
 			
-			$this->connection = new \PDO($dsn, $this->dbUsername, $this->dbPassword, $options);
+			$this->dbConnection = new \PDO($dsn, $this->dbUsername, $this->dbPassword, $options);
 			
 		} catch (PDOLightException $e) {
 			
@@ -86,12 +86,12 @@ class PDOLight {
 	public function prepareQuery($query) {
 		try {
 			
-			$stmt = $this->connection->prepare($query);
+			$stmt = $this->dbConnection->prepare($query);
 			
 	    } catch (PDOLightException $e) {
 			
 			$this->connectDb();
-			$stmt = $this->connection->prepare($query);
+			$stmt = $this->dbConnection->prepare($query);
 			
 	    }
 		
@@ -106,7 +106,7 @@ class PDOLight {
 			
 				if($preparedStmt->execute($valuesArray)) {
 					
-					return (int) $this->connection->lastInsertId();
+					return (int) $this->dbConnection->lastInsertId();
 					
 				} else {
 					
@@ -118,7 +118,7 @@ class PDOLight {
 				
 				if($preparedStmt->execute($valuesArray)) {
 					
-					return (string) $this->connection->lastInsertId();
+					return (string) $this->dbConnection->lastInsertId();
 					
 				} else {
 					
@@ -203,7 +203,7 @@ class PDOLight {
 			
 				if($preparedStmt->execute($valuesArray)) {
 					
-					return (int) $this->connection->lastInsertId();
+					return (int) $this->dbConnection->lastInsertId();
 					
 				} else {
 					
@@ -215,7 +215,7 @@ class PDOLight {
 				
 				if($preparedStmt->execute($valuesArray)) {
 					
-					return (string) $this->connection->lastInsertId();
+					return (string) $this->dbConnection->lastInsertId();
 					
 				} else {
 					
